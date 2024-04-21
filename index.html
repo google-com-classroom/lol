@@ -137,40 +137,45 @@
                 }
             }
 
-            // initialization
-            bridge
-                .initialize(bridgeOptions)
-                .then(() => {
+// Check if bridge is defined before using it
+if (typeof bridge !== 'undefined') {
+    bridge
+        .initialize(bridgeOptions)
+        .then(() => {
 
-                    let unityLoader = document.createElement('script')
-                    unityLoader.src = 'Build/do_not_stop.loader.js'
-                    unityLoader.onload = () => {
-                        createUnityInstance(
-                            canvas,
-                            {
-                                dataUrl: 'Build/acd6e28b1ece4c0cd838fae50f93cfc2.data.unityweb',
-                                frameworkUrl: 'Build/1e1588748d38a42221eafad4d9ca8539.js.unityweb',
-                                codeUrl: 'Build/18c1f0f737947f6da6d9d2341fbc043a.wasm.unityweb',
-                                streamingAssetsUrl: 'StreamingAssets',
-                                companyName: 'KAOLA',
-                                productName: 'Do Not Stop!',
-                                productVersion: '1.0.1',
-                                // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-                                // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
-                            },
-                            onUnityLoadingProgressChanged)
-                            .then((unityInstance) => {
-                                window.unityInstance = unityInstance
-                                loadingOverlay.remove()
-                                canvas.focus()
-                            })
-                            .catch((error) => {
-                                console.error(error)
-                            })
-                    }
-                    document.body.appendChild(unityLoader)
-                })
-                .catch(error => console.error(error))
+            let unityLoader = document.createElement('script')
+            unityLoader.src = 'Build/do_not_stop.loader.js'
+            unityLoader.onload = () => {
+                createUnityInstance(
+                    canvas,
+                    {
+                        dataUrl: 'Build/acd6e28b1ece4c0cd838fae50f93cfc2.data.unityweb',
+                        frameworkUrl: 'Build/1e1588748d38a42221eafad4d9ca8539.js.unityweb',
+                        codeUrl: 'Build/18c1f0f737947f6da6d9d2341fbc043a.wasm.unityweb',
+                        streamingAssetsUrl: 'StreamingAssets',
+                        companyName: 'KAOLA',
+                        productName: 'Do Not Stop!',
+                        productVersion: '1.0.1',
+                        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+                        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+                    },
+                    onUnityLoadingProgressChanged)
+                    .then((unityInstance) => {
+                        window.unityInstance = unityInstance
+                        loadingOverlay.remove()
+                        canvas.focus()
+                    })
+                    .catch((error) => {
+                        console.error(error)
+                    })
+            }
+            document.body.appendChild(unityLoader)
+        })
+        .catch(error => console.error(error))
+} else {
+    console.error("bridge is not defined")
+}
+
             
 
             // platform
