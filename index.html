@@ -141,14 +141,6 @@
             bridge
                 .initialize(bridgeOptions)
                 .then(() => {
-                    bridge.advertisement.on('banner_state_changed', state => sendMessageToUnity('OnBannerStateChanged', state))
-                    bridge.advertisement.on('interstitial_state_changed', state => sendMessageToUnity('OnInterstitialStateChanged', state))
-                    bridge.advertisement.on('rewarded_state_changed', state => sendMessageToUnity('OnRewardedStateChanged', state))
-                    bridge.game.on('visibility_state_changed', state => sendMessageToUnity('OnVisibilityStateChanged', state))
-
-                    //if (bridge.platform.id === bridge.PLATFORM_ID.YANDEX || bridge.platform.id === bridge.PLATFORM_ID.GAME_DISTRIBUTION) {
-                    //    bridge.advertisement.showInterstitial()
-                    //}
 
                     let unityLoader = document.createElement('script')
                     unityLoader.src = 'Build/do_not_stop.loader.js'
